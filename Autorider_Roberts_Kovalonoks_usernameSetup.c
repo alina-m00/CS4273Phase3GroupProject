@@ -21,8 +21,10 @@ struct User {
 
 // Function to set up the username
 void setupUsername(struct User *user) {
+   
    // Combine the first name and last name to form the username
    snprintf(user->username, sizeof(user->username), "%s%s", user->firstName, user->lastName);
+   
    // Convert the username to lowercase (optional, for consistency)
    for (int i = 0; user->username[i]; i++) {
        user->username[i] = tolower(user->username[i]);
@@ -34,6 +36,7 @@ void setupUsername(struct User *user) {
 int main() {
    // new user Struct
    struct User newUser;
+   
    // Input user details
    printf("Enter first name: ");
    fflush(stdout);
@@ -41,6 +44,7 @@ int main() {
    printf("Enter last name: ");
    fflush(stdout);
    scanf("%s", newUser.lastName);
+   
    // Call the function to set up the username
    setupUsername(&newUser);
    return 0;
