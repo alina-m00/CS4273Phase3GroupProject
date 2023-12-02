@@ -1,1 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+bool isValidUsername(const char *username);
+void changeUsername(char *username);
+
+int main() {
+    char username[MAX_USERNAME_LENGTH] = "guest";  
+
+    printf("Current username: %s\n", username);
+
+
+    changeUsername(username);
+
+    printf("Username updated to: %s\n", username);
+
+    return 0;
+}
+
+
+bool isValidUsername(const char *username) {
+    int length = strlen(username);
+    if (length == 0 || length >= MAX_USERNAME_LENGTH - 1) {
+        return false;
+    }
+    for (int i = 0; i < length; i++) {
+        if (username[i] == '\n' || username[i] == '\r') {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void changeUsername(char *username) {
+    char newUsername[MAX_USERNAME_LENGTH];
+    bool valid = false;
+
+    while (!valid) {
+        printf("Enter new username: ");
+        if (fgets(newUsername, MAX_USERNAME_LENGTH, stdin) != NULL) {
+
+            newUsername[strcspn(newUsername, "\n")] = 0;
+            if (isValidUsername(newUsername)) {
+                valid = true;
+            } else {
+                printf("Invalid username. Please try again.\n");
+            }
+        } else {
+            printf("Error reading input. Please try again.\n");
+        }
+    }
+
+    strcpy(username, newUsername); 
+}
 
