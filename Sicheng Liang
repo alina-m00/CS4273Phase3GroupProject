@@ -1,11 +1,9 @@
 /*
 ============================================================================
-Name        : Autorider_Roberts_Kovalonoks_usernameSetup.c
-Author      : Roberts Kovalonoks
+Name        : Change User Name.c
+Author      : Sicheng Liang
 Version     : 1.0
-Copyright   : Your copyright notice
-Description : Use his set up user name function, 
-add user can change or update the user name function
+Description :  user can change or update the user name function
 ============================================================================
 */
 
