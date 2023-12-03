@@ -1,57 +1,60 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
 
-bool isValidUsername(const char *username);
-void changeUsername(char *username);
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h> 
+
+struct User {
+   char firstName[50];
+   char lastName[50];
+   char username[50];
+};
+
+void setupUsername(struct User *user) {
+   snprintf(user->username, sizeof(user->username), "%s%s", user->firstName, user->lastName);
+   for (int i = 0; user->username[i]; i++) {
+       user->username[i] = tolower(user->username[i]);
+   }
+
+   printf("Username set up successfully: %s\n", user->username);
+}
+void changeUsername(struct User *user) {
+   char newUsername[50];
+   printf("Enter new username: ");
+   fflush(stdout);
+   scanf("%s", newUsername);
+   strncpy(user->username, newUsername, sizeof(user->username));
+
+   for (int i = 0; user->username[i]; i++) {
+       user->username[i] = tolower(user->username[i]);
+   }
+   printf("Username changed successfully: %s\n", user->username);
+}
 
 int main() {
-    char username[MAX_USERNAME_LENGTH] = "guest";  
+   struct User newUser;
+   char option;
 
-    printf("Current username: %s\n", username);
+   printf("Enter first name: ");
+   fflush(stdout);
+   scanf("%s", newUser.firstName);
+   printf("Enter last name: ");
+   fflush(stdout);
+   scanf("%s", newUser.lastName);
 
+   // 首次设置用户名
+   setupUsername(&newUser);
 
-    changeUsername(username);
+   // 询问用户是否需要更改用户名
+   printf("Would you like to change the username? (Y/N): ");
+   fflush(stdout);
+   scanf(" %c", &option); // 注意前面的空格，它可以帮助忽略前面的换行符
+   
+   if (option == 'Y' || option == 'y') {
+       changeUsername(&newUser);
+   }
 
-    printf("Username updated to: %s\n", username);
-
-    return 0;
+   return 0;
 }
-
-
-bool isValidUsername(const char *username) {
-    int length = strlen(username);
-    if (length == 0 || length >= MAX_USERNAME_LENGTH - 1) {
-        return false;
-    }
-    for (int i = 0; i < length; i++) {
-        if (username[i] == '\n' || username[i] == '\r') {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-void changeUsername(char *username) {
-    char newUsername[MAX_USERNAME_LENGTH];
-    bool valid = false;
-
-    while (!valid) {
-        printf("Enter new username: ");
-        if (fgets(newUsername, MAX_USERNAME_LENGTH, stdin) != NULL) {
-
-            newUsername[strcspn(newUsername, "\n")] = 0;
-            if (isValidUsername(newUsername)) {
-                valid = true;
-            } else {
-                printf("Invalid username. Please try again.\n");
-            }
-        } else {
-            printf("Error reading input. Please try again.\n");
-        }
-    }
-
-    strcpy(username, newUsername); 
-}
-
