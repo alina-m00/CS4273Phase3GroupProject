@@ -54,13 +54,11 @@ int main() {
    fflush(stdout);
    scanf("%s", newUser.lastName);
 
-   // 首次设置用户名
    setupUsername(&newUser);
 
-   // 询问用户是否需要更改用户名
    printf("Would you like to change the username? (Y/N): ");
    fflush(stdout);
-   scanf(" %c", &option); // 注意前面的空格，它可以帮助忽略前面的换行符
+   scanf(" %c", &option); 
    
    if (option == 'Y' || option == 'y') {
        changeUsername(&newUser);
