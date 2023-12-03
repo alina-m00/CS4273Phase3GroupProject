@@ -12,12 +12,12 @@ typedef struct
     char email[100];
     char phone[20];
     char paymentMethod[50];
+    char address[200]; // Added address field
 } Account;
 
 // Function to get account information from the user
 void getAccountInfo(Account *account) 
 {
-
     // Letting User "Login"
     printf("Enter your Username: ");
     fgets(account->username, 50, stdin);
@@ -26,7 +26,6 @@ void getAccountInfo(Account *account)
     printf("Enter your Password: ");
     fgets(account->password, 50, stdin);
     account->password[strcspn(account->password, "\n")] = 0;
-
 
     // Getting user to add details to their account 
     printf("Enter your First Name: ");
@@ -48,6 +47,11 @@ void getAccountInfo(Account *account)
     printf("Enter your preferred payment method (Visa, Mastercard, etc...): ");
     fgets(account->paymentMethod, 50, stdin);
     account->paymentMethod[strcspn(account->paymentMethod, "\n")] = 0;
+
+    // Getting user to add address
+    printf("Enter your address: ");
+    fgets(account->address, 200, stdin);
+    account->address[strcspn(account->address, "\n")] = 0;
 }
 
 // Function to display account information (for confirmation)
@@ -63,6 +67,7 @@ void displayAccountInfo(Account account)
     printf("Email: %s\n", account.email);
     printf("Phone: %s\n", account.phone);
     printf("Payment Method: %s\n", account.paymentMethod);
+    printf("Address: %s\n", account.address); // Displaying the address
     printf("Details Added.\n");
 }
 
